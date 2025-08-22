@@ -1,20 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:contador_bloc/app/data/models/blocs/counter_event.dart';
-import 'package:contador_bloc/app/data/models/blocs/counter_state.dart';
 
-class CounterBloc extends Bloc<CounterState, CounterEvent>{
+class CounterBloc extends Bloc<CounterEvent, int>{
+  CounterBloc() : super(0) {
+
+    on<CounterIncremented >(
+      (event, emit) => emit(state + 1));
   
-  CounterBloc() : super(CounterState(counter: 0)) {
-
-    on<CounterIncrementEvent>(
-      (event, emit) => emit(CounterState(counter: state.counter + 1))); 
-  
-    on<CounterDecrementEvent>(
-      (event, emit) => emit(CounterState(counter: state.counter - 1)));
-
-    on<ResetEvent>(
-      (event, emit) => emit(CounterState(counter: 0)));
-    
+    on<CounterDecremented >(
+      (event, emit) => emit(state - 1));
   }
 
 }
